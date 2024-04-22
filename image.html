@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Slideshow</title>
+    <style>
+        /* Add your CSS styles here */
+        .slideshow-container {
+            max-width: 800px;
+            margin: auto;
+            position: relative;
+        }
+
+        .mySlides {
+            display: none;
+        }
+
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            padding: 10px;
+        }
+
+        .prev {
+            left: 0;
+        }
+
+        .next {
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="slideshow-container">
+        <div class="mySlides">
+            <img src="https://images.pexels.com/photos/1480807/pexels-photo-1480807.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Image 1">
+        </div>
+        <div class="mySlides">
+            <img src="https://img.freepik.com/premium-photo/mountain-river-with-clear-water-snowcapped-peaks_743855-36543.jpg" alt="Image 2">
+        </div>
+        <div class="mySlides">
+            <img src="https://images.pexels.com/photos/1480811/pexels-photo-1480811.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Image 2">
+        </div>
+
+        <div class="mySlides">
+            <img src="https://images.pexels.com/photos/709552/pexels-photo-709552.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Image 2">
+        </div>
+
+        <a class="prev" onclick="plusSlides(-1)">❮</a>
+        <a class="next" onclick="plusSlides(1)">❯</a>
+    </div>
+
+    <script>
+        let slideIndex = 1;
+        let timer;
+
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            clearTimeout(timer);
+            showSlides(slideIndex += n);
+        }
+
+        function showSlides(n) {
+            const slides = document.getElementsByClassName("mySlides");
+            if (n > slides.length) {
+                slideIndex = 1;
+            }
+            if (n < 1) {
+                slideIndex = slides.length;
+            }
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slides[slideIndex - 1].style.display = "block";
+            timer = setTimeout(() => plusSlides(1), 3000); // Change slide every 3 seconds
+        }
+    </script>
+</body>
+</html>
