@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Timer</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 20px;
+  }
+  h1 {
+    color: #333;
+  }
+  .timer-container {
+    margin-bottom: 20px;
+  }
+  .timer-container label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+  }
+  .timer-container input[type="number"] {
+    width: 50px;
+    text-align: center;
+    margin-right: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  .timer-controls button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 5px;
+    font-size: 16px;
+  }
+  .timer-controls button:hover {
+    background-color: #45a049;
+  }
+  #timerDisplay {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Timer</h1>
+
+<div class="timer-container">
+  <label for="hours">Hours:</label>
+  <input type="number" id="hours" min="0" value="0">
+  
+  <label for="minutes">Minutes:</label>
+  <input type="number" id="minutes" min="0" max="59" value="0">
+  
+  <label for="seconds">Seconds:</label>
+  <input type="number" id="seconds" min="0" max="59" value="0">
+</div>
+
+<div class="timer-controls">
+  <button onclick="startTimer()">Start</button>
+  <button onclick="pauseTimer()">Pause</button>
+  <button onclick="resetTimer()">Reset</button>
+</div>
+
+<div id="timerDisplay"></div>
+
+<script>
+  let hoursInput = document.getElementById('hours');
+  let minutesInput = document.getElementById('minutes');
+  let secondsInput = document.getElementById('seconds');
+  let timerDisplay = document.getElementById('timerDisplay');
+  let timer;
+  let totalSeconds;
+
+  function startTimer() {
+    totalSeconds = parseInt(hoursInput.value) * 3600 + parseInt(minutesInput.value) * 60 + parseInt(secondsInput.value);
+    timer = setInterval(updateTimer, 1000);
+  }
+
+  function updateTimer() {
+    totalSeconds--;
+    if (totalSeconds <= 0) {
+      clearInterval(timer);
+      timerDisplay.textContent = "Time's up!";
+    } else {
+      let hours = Math.floor(totalSeconds / 3600);
+      let minutes = Math.floor((totalSeconds % 3600) / 60);
+      let seconds = totalSeconds % 60;
+      timerDisplay.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+  }
+
+  function pauseTimer() {
+    clearInterval(timer);
+  }
+
+  function resetTimer() {
+    clearInterval(timer);
+    hoursInput.value = 0;
+    minutesInput.value = 0;
+    secondsInput.value = 0;
+    timerDisplay.textContent = "";
+  }
+</script>
+
+</body>
+</html>
+
